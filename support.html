@@ -1,0 +1,182 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --growlight:#F0A868;
+    --coral:#FF8B6B;
+    --teal:#1FA396;
+    --moss-deep:#0B3D2E;
+    --moss-mid:#146450;
+    --text-hi:#F6FBF8;
+    --text-lo:#BFDCD1;
+    --text-dim:#8FB5A9;
+    --glass-bg:rgba(255,255,255,0.12);
+    --glass-border:rgba(255,255,255,0.25);
+    --radius-lg:22px;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; margin:0; }
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--text-hi);
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(90deg, #00ffff, #00ccff);
+      
+  }
+  .backdrop{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+  .backdrop span{
+    position:absolute; border-radius:50%; filter:blur(70px); opacity:0.6;
+    animation: drift 30s ease-in-out infinite;
+  }
+  .backdrop span:nth-child(1){ width:480px;height:480px; left:-120px; top:-80px; background:#BFDCD1; }
+  .backdrop span:nth-child(2){ width:420px;height:420px; right:-100px; bottom:-100px; background:#BFDCD1; animation-delay:-8s; }
+
+  @keyframes drift{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(30px,-20px) scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce){ .backdrop span{ animation:none; } }
+
+  .card{
+    position:relative; z-index:1;
+    width:100%; max-width:400px;
+    background:var(--glass-bg);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--glass-border);
+    border-radius:var(--radius-lg);
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.55), 0 4px 18px -6px rgba(0,0,0,0.35);
+    padding:32px 28px 26px;
+    text-align:center;
+  }
+  .card::before{
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    background:linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 40%);
+    pointer-events:none;
+  }
+  .card > *{ position:relative; z-index:1; }
+
+  .avatar{
+    display:none
+  }
+  h1{
+    font-family:'Fraunces',serif; font-weight:600; font-size:1.4rem; margin:0 0 4px;
+  }
+  .subtitle{ color:white; font-size:0.9rem; margin:0 0 22px; }
+
+  .qr-wrap{
+    background:#fff;
+    border-radius:16px;
+    padding:16px;
+    display:inline-block;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,0.5);
+    margin-bottom:18px;
+  }
+  #qrcode{ line-height:0; }
+  #qrcode img, #qrcode canvas{ display:block; border-radius:4px; }
+
+  .upi-id{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.86rem;
+    color:var(--text-hi);
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:10px;
+    padding:9px 12px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    margin-bottom:16px;
+  }
+  .copy-btn{
+    font-family:inherit; font-size:0.76rem; font-weight:600;
+    color:rgb(255, 254, 254);
+    background:rgb(5, 213, 245);
+    border:none; border-radius:999px;
+    padding:6px 12px; cursor:pointer;
+    transition:transform .12s ease;
+    flex:none;
+  }
+  .copy-btn:hover{ transform:scale(1.04); }
+  .copy-btn:focus-visible{ outline:2.5px solid #fff; outline-offset:2px; }
+
+  .apps{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    font-size:0.76rem; color:white;
+    margin-bottom:4px;
+  }
+
+  .note{
+    font-size:0.78rem; color:white; margin-top:16px; line-height:1.5;
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2.5px solid var(--growlight); outline-offset:3px; border-radius:8px;
+  }
+
+  @media (prefers-reduced-transparency: reduce){
+    .card{ backdrop-filter:none; background:#122922; }
+  }
+</style>
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true"><span></span><span></span></div>
+
+<main class="card">
+  <div class="avatar" role="img" aria-label="Sampad's avatar"></div>
+  <h1> Sampad Charudarshi</h1>
+  <p class="subtitle">Scan to send any amount via UPI</p>
+
+  <div class="qr-wrap">
+    <div id="qrcode" aria-label="UPI QR code for 7978533887-2@axl"></div>
+  </div>
+
+  <div class="upi-id">
+    <span id="upiText">7978533887-2@axl</span>
+    <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+  </div>
+
+  <p class="apps">Works with GPay · PhonePe · Paytm · any UPI app</p>
+
+  <p class="note">Scanning opens your UPI app with the payee filled in — you choose the amount before sending. No amount is preset.</p>
+</main>
+
+<script>
+  const upiId = "7978533887-2@axl";
+  const payeeName = "Sampad Charudarshi";
+  const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&cu=INR`;
+
+  new QRCode(document.getElementById("qrcode"), {
+    text: upiLink,
+    width: 220,
+    height: 220,
+    colorDark: "#0B3D2E",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(upiId);
+      const btn = document.getElementById("copyBtn");
+      const original = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    } catch (e) {
+      console.error("Copy failed", e);
+    }
+  });
+</script>
+
+</body>
+</html>
