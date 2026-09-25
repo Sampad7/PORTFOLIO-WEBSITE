@@ -114,5 +114,5 @@ const textLines = document.querySelectorAll('.hero-desc');
         } else {
             line.classList.remove('active');
         }
-    });
+    
 });
