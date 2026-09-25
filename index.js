@@ -103,17 +103,10 @@ navLinks.forEach(link => {
         this.classList.add('active');
     });
 });
-const slider = document.getElementById('scrollSlider');
+
 const textLines = document.querySelectorAll('.hero-desc');
 
-slider.addEventListener('input', (e) => {
-    const value = e.target.value;
-    
-    // Determine which text line to show based on slider progress (0-50% vs 50-100%)
-    let activeIndex = 0;
-    if (value > 50) {
-        activeIndex = 1;
-    }
+
 
     textLines.forEach((line, index) => {
         if (index === activeIndex) {
