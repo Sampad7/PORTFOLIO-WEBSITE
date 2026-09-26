@@ -1,3 +1,19 @@
+const PreLoader = document.querySelector('.loader-overlay'); // or '.loader' — must match your HTML
+
+window.onload = () => {
+    if (!PreLoader) {
+        console.error('Preloader element not found — check your selector matches the HTML class/id.');
+        return;
+    }
+    setTimeout(() => {
+        PreLoader.style.opacity = "0";
+        setTimeout(() => {
+            PreLoader.style.display = "none";
+        }, 1500);
+    }, 1500);
+};
+
+// animate(); ← delete this line entirely unless you've defined an animate() function
 
     const root = document.documentElement;
     const toggleBtn = document.getElementById("themeToggle");
@@ -108,11 +124,5 @@ const textLines = document.querySelectorAll('.hero-desc');
 
 
 
-    textLines.forEach((line, index) => {
-        if (index === activeIndex) {
-            line.classList.add('active');
-        } else {
-            line.classList.remove('active');
-        }
+
     
-});
